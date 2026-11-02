@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An interactive visual framework explaining machine learning algorithms, learning types, application domains, and real-world use cases.">
+<title>Machine Learning Algorithms | Visual Framework</title>
+<style>
+:root{--navy:#10243a;--blue:#2864a5;--cyan:#38b8c7;--ink:#17283b;--muted:#617187;--paper:#f4f7fb;--line:#dce5ef;--white:#fff;--green:#16856b;--purple:#7755b5}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+a{color:inherit}.wrap{max-width:1160px;margin:auto;padding:0 24px}
+.hero{background:linear-gradient(125deg,#10243a,#174d70 68%,#197b88);color:#fff;padding:64px 0 54px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:430px;height:430px;border:1px solid #ffffff26;border-radius:50%;right:-100px;top:-180px;box-shadow:0 0 0 55px #ffffff0a,0 0 0 110px #ffffff08}
+.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:800;color:#8ee5e5}
+h1{font-size:clamp(2.3rem,6vw,4.5rem);line-height:1.04;max-width:800px;margin:14px 0}
+.hero p{max-width:720px;color:#d7e8f3;font-size:1.08rem}
+.pills{display:flex;gap:9px;flex-wrap:wrap;margin-top:25px}.pill{border:1px solid #ffffff55;background:#ffffff12;border-radius:30px;padding:6px 12px;font-size:.82rem}
+nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.navinner{display:flex;gap:24px;overflow:auto;padding:13px 24px;max-width:1160px;margin:auto;white-space:nowrap}
+nav a{text-decoration:none;color:#52647a;font-weight:650;font-size:.9rem}nav a:hover{color:var(--blue)}
+section{padding:54px 0}.section-kicker{font-size:.75rem;text-transform:uppercase;letter-spacing:.15em;color:var(--blue);font-weight:800}
+h2{font-size:clamp(1.65rem,3vw,2.35rem);line-height:1.2;margin:7px 0 12px;color:var(--navy)}
+.lead{max-width:780px;color:var(--muted);margin:0 0 26px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-28px;position:relative}
+.stat{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px;box-shadow:0 10px 28px #10243a0b}
+.stat strong{display:block;font-size:1.8rem;color:var(--blue)}.stat span{color:var(--muted);font-size:.88rem}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0}.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:20px;font-size:.75rem;font-weight:750}
+.supervised{background:#e6f0ff;color:#245a9c}.unsupervised{background:#e5f6ef;color:#147354}.selfsup{background:#f0eaff;color:#6746a4}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0}.filters button{border:1px solid var(--line);background:#fff;color:#42536a;padding:9px 14px;border-radius:25px;font-weight:700;cursor:pointer}
+.filters button.active,.filters button:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 5px 18px #10243a08;transition:.2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px #10243a12}
+.cardtop{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.num{color:#8a9aab;font-size:.78rem;font-weight:800;letter-spacing:.1em}
+.card h3{font-size:1.22rem;color:var(--navy);margin:4px 0 9px}
+.card p{color:#586a7f;margin:9px 0;font-size:.94rem}
+.meta{display:flex;gap:7px;flex-wrap:wrap;margin:12px 0}
+.domain{font-size:.72rem;background:#f0f4f8;color:#53657a;padding:4px 8px;border-radius:5px}
+.detail{border-top:1px solid #edf1f5;margin-top:14px;padding-top:12px}
+.detail b{font-size:.78rem;color:#344a61;text-transform:uppercase;letter-spacing:.06em}
+.detail p{margin:4px 0 10px}
+.callout{background:#eaf3f9;border-left:4px solid var(--cyan);padding:16px 18px;border-radius:0 10px 10px 0;color:#36536c;margin:22px 0}
+.compare{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:.9rem}
+.compare th,.compare td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+.compare th{background:#eaf0f6;color:#28445e}.compare tr:last-child td{border-bottom:0}
+.domain-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.domainbox{background:#fff;border:1px solid var(--line);padding:18px;border-radius:14px}
+.domainbox .symbol{font-size:1.5rem}.domainbox h3{margin:6px 0;color:var(--navy);font-size:1.05rem}.domainbox p{margin:0;color:var(--muted);font-size:.87rem}
+.reflection{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;max-width:900px}
+.reflection p{color:#4e6074}
+footer{background:var(--navy);color:#d7e3ed;padding:28px 0;font-size:.85rem}footer a{color:#9ce4e6}
+.small{font-size:.82rem;color:var(--muted)}
+.hidden{display:none!important}
+@media(max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.domain-grid{grid-template-columns:repeat(2,1fr)}section{padding:40px 0}.hero{padding:48px 0}}
+@media(max-width:420px){.wrap{padding:0 16px}.domain-grid{grid-template-columns:1fr 1fr}.stat{padding:14px}}
+</style>
+</head>
+<body>
+<header class="hero">
+ <div class="wrap">
+  <div class="eyebrow">Machine Learning • Visual Study Guide</div>
+  <h1>Machine Learning Algorithms</h1>
+  <p>An interactive framework for understanding how common algorithms learn, what kinds of problems they solve, and where they are used across data science and artificial intelligence.</p>
+  <div class="pills"><span class="pill">Supervised Learning</span><span class="pill">Unsupervised Learning</span><span class="pill">Computer Vision</span><span class="pill">NLP & Generative AI</span></div>
+ </div>
+</header>
+<nav><div class="navinner"><a href="#overview">Overview</a><a href="#algorithms">Algorithms</a><a href="#domains">Application Domains</a><a href="#comparison">Comparison</a><a href="#reflection">Reflection</a><a href="#references">References</a></div></nav>
+<main>
+<section id="overview" style="padding-bottom:28px">
+ <div class="wrap">
+  <div class="stats">
+   <div class="stat"><strong>11</strong><span>Core algorithms</span></div>
+   <div class="stat"><strong>2</strong><span>Main learning categories</span></div>
+   <div class="stat"><strong>4</strong><span>Application domains</span></div>
+   <div class="stat"><strong>1</strong><span>Connected framework</span></div>
+  </div>
+  <div style="padding-top:42px">
+   <div class="section-kicker">01 / The big picture</div>
+   <h2>How the learning approaches differ</h2>
+   <p class="lead">Machine learning (ML) is a field within artificial intelligence (AI). Algorithms identify patterns from data to make predictions, organize information, or generate new content. The learning category depends mainly on the training signal.</p>
+   <div class="legend"><span class="tag supervised">Supervised</span><span class="tag unsupervised">Unsupervised</span><span class="tag selfsup">Self-supervised note</span></div>
+   <div class="callout"><b>Important distinction:</b> An application domain is not the same as an algorithm type. For example, computer vision can use supervised CNNs, while generative AI can use transformer models trained with self-supervised objectives. The same architecture may be trained in different ways.</div>
+  </div>
+ </div>
+</section>
+<section id="algorithms">
+ <div class="wrap">
+  <div class="section-kicker">02 / Algorithm library</div>
+  <h2>Explore the algorithms</h2>
+  <p class="lead">Filter the cards by learning approach or domain. Each card explains the basic idea and gives a practical example.</p>
+  <div class="filters" aria-label="Algorithm filters">
+   <button class="active" data-filter="all">All algorithms</button><button data-filter="Supervised">Supervised</button><button data-filter="Unsupervised">Unsupervised</button><button data-filter="Tabular Data">Tabular Data</button><button data-filter="Computer Vision">Computer Vision</button><button data-filter="NLP">NLP</button><button data-filter="Generative AI">Generative AI</button>
+  </div>
+  <div class="grid" id="cards">
+   <article class="card" data-type="Supervised" data-domains="Tabular Data"><div class="cardtop"><div><div class="num">01 / REGRESSION</div><h3>Linear Regression</h3></div><span class="tag supervised">Supervised</span></div><p>Models the relationship between input features and a continuous numerical outcome.</p><div class="meta"><span class="domain">Tabular Data</span></div><div class="detail"><b>How it works</b><p>It fits a line or hyperplane that minimizes the difference between predicted and actual values, commonly using least squares.</p><b>Example use case</b><p>Predicting house prices from floor area, location, and property age.</p></div></article>
+   <article class="card" data-type="Supervised" data-domains="Tabular Data NLP"><div class="cardtop"><div><div class="num">02 / CLASSIFICATION</div><h3>Logistic Regression</h3></div><span class="tag supervised">Supervised</span></div><p>Estimates the probability that an observation belongs to a class.</p><div class="meta"><span class="domain">Tabular Data</span><span class="domain">NLP</span></div><div class="detail"><b>How it works</b><p>It applies a logistic function to a weighted combination of features and uses a threshold or class rule to make a prediction.</p><b>Example use case</b><p>Predicting whether a bank transaction is potentially fraudulent, or classifying a review as positive or negative using text features.</p></div></article>
+   <article class="card" data-type="Supervised" data-domains="Tabular Data"><div class="cardtop"><div><div class="num">03 / CLASSIFICATION & REGRESSION</div><h3>Decision Tree</h3></div><span class="tag supervised">Supervised</span></div><p>Uses a sequence of feature-based questions to reach a prediction.</p><div class="meta"><span class="domain">Tabular Data</span></div><div class="detail"><b>How it works</b><p>It repeatedly splits training data into smaller groups using criteria such as information gain or Gini impurity.</p><b>Example use case</b><p>Assessing loan applications based on income, credit history, and debt level.</p></div></article>
+   <article class="card" data-type="Supervised" data-domains="Tabular Data"><div class="cardtop"><div><div class="num">04 / ENSEMBLE LEARNING</div><h3>Random Forest</h3></div><span class="tag supervised">Supervised</span></div><p>Combines many decision trees to produce a more stable prediction.</p><div class="meta"><span class="domain">Tabular Data</span></div><div class="detail"><b>How it works</b><p>Each tree trains on a bootstrap sample and considers a random subset of features. Predictions are combined by voting or averaging.</p><b>Example use case</b><p>Predicting customer churn from account activity and service history.</p></div></article>
+   <article class="card" data-type="Supervised" data-domains="Tabular Data Computer Vision NLP"><div class="cardtop"><div><div class="num">05 / MARGIN-BASED LEARNING</div><h3>Support Vector Machine (SVM)</h3></div><span class="tag supervised">Supervised</span></div><p>Finds a decision boundary that separates classes with the widest possible margin.</p><div class="meta"><span class="domain">Tabular Data</span><span class="domain">Computer Vision</span><span class="domain">NLP</span></div><div class="detail"><b>How it works</b><p>SVM selects support vectors near the boundary. Kernel functions can represent nonlinear decision boundaries.</p><b>Example use case</b><p>Classifying emails as spam or not spam using text features, or recognizing image categories from extracted features.</p></div></article>
+   <article class="card" data-type="Supervised" data-domains="Computer Vision"><div class="cardtop"><div><div class="num">06 / DEEP LEARNING</div><h3>Convolutional Neural Network (CNN)</h3></div><span class="tag supervised">Supervised</span></div><p>Learns spatial patterns in images, such as edges, textures, shapes, and objects.</p><div class="meta"><span class="domain">Computer Vision</span></div><div class="detail"><b>How it works</b><p>Convolution filters scan local regions of an image to create feature maps. Deeper layers combine simple patterns into more complex representations.</p><b>Example use case</b><p>Detecting defects on a manufacturing line or identifying objects in medical images.</p></div></article>
+   <article class="card" data-type="Supervised" data-domains="NLP Generative AI"><div class="cardtop"><div><div class="num">07 / ATTENTION-BASED DEEP LEARNING</div><h3>Transformer</h3></div><span class="tag supervised">Often supervised fine-tuning</span></div><p>Processes sequences using attention to model relationships between tokens.</p><div class="meta"><span class="domain">NLP</span><span class="domain">Generative AI</span></div><div class="detail"><b>How it works</b><p>Self-attention lets each token use information from other tokens. Transformers are often pretrained with self-supervised objectives and may then be fine-tuned with labeled data or human feedback.</p><b>Example use case</b><p>Machine translation, text summarization, question answering, and large language model chat assistants.</p></div></article>
+   <article class="card" data-type="Unsupervised" data-domains="Tabular Data"><div class="cardtop"><div><div class="num">08 / CLUSTERING</div><h3>K-Means Clustering</h3></div><span class="tag unsupervised">Unsupervised</span></div><p>Groups observations into a chosen number of clusters based on similarity.</p><div class="meta"><span class="domain">Tabular Data</span></div><div class="detail"><b>How it works</b><p>It assigns each point to its nearest centroid, recalculates the centroids, and repeats until assignments stabilize.</p><b>Example use case</b><p>Segmenting customers according to purchasing behavior.</p></div></article>
+   <article class="card" data-type="Unsupervised" data-domains="Tabular Data Computer Vision"><div class="cardtop"><div><div class="num">09 / DIMENSIONALITY REDUCTION</div><h3>Principal Component Analysis (PCA)</h3></div><span class="tag unsupervised">Unsupervised</span></div><p>Compresses many correlated features into fewer components while retaining as much variance as possible.</p><div class="meta"><span class="domain">Tabular Data</span><span class="domain">Computer Vision</span></div><div class="detail"><b>How it works</b><p>It finds orthogonal directions, called principal components, that capture the greatest variance in the data.</p><b>Example use case</b><p>Reducing hundreds of measurements before visualization or simplifying image data for analysis.</p></div></article>
+   <article class="card" data-type="Unsupervised" data-domains="Tabular Data"><div class="cardtop"><div><div class="num">10 / DENSITY-BASED CLUSTERING</div><h3>DBSCAN</h3></div><span class="tag unsupervised">Unsupervised</span></div><p>Finds dense groups of observations and identifies points that do not belong to a dense region.</p><div class="meta"><span class="domain">Tabular Data</span></div><div class="detail"><b>How it works</b><p>It connects points with enough nearby neighbors within a distance threshold and labels sparse points as noise.</p><b>Example use case</b><p>Detecting unusual GPS activity or discovering geographic hotspots.</p></div></article>
+   <article class="card" data-type="Unsupervised" data-domains="Computer Vision Generative AI"><div class="cardtop"><div><div class="num">11 / GENERATIVE DEEP LEARNING</div><h3>Autoencoder</h3></div><span class="tag unsupervised">Unsupervised / Self-supervised</span></div><p>Learns a compact representation of data and reconstructs the original input.</p><div class="meta"><span class="domain">Computer Vision</span><span class="domain">Generative AI</span></div><div class="detail"><b>How it works</b><p>An encoder compresses input into a latent representation, and a decoder attempts to reconstruct it. Variational autoencoders (VAEs) add a probabilistic latent space that can be sampled to generate new data.</p><b>Example use case</b><p>Detecting unusual manufacturing images through reconstruction error, or generating image-like samples with a VAE.</p></div></article>
+  </div>
+  <p class="small" style="margin-top:16px">Note: CNNs and transformers are neural-network architectures rather than single fixed training procedures. Their learning category depends on how they are trained. The labels above show common educational use, with qualifications where needed.</p>
+ </div>
+</section>
+<section id="domains" style="background:#eaf0f6">
+ <div class="wrap">
+  <div class="section-kicker">03 / Where algorithms are used</div><h2>Four application domains</h2>
+  <p class="lead">The same machine learning method can sometimes be adapted to more than one domain. These examples show common patterns, not strict boundaries.</p>
+  <div class="domain-grid">
+   <div class="domainbox"><div class="symbol">▦</div><h3>Tabular Data</h3><p>Rows and columns such as transactions, customer records, and sensor measurements. Common methods include regression, tree models, clustering, and PCA.</p></div>
+   <div class="domainbox"><div class="symbol">▧</div><h3>Computer Vision</h3><p>Images and video. CNNs classify or detect visual patterns; SVMs and PCA can also support image-feature analysis.</p></div>
+   <div class="domainbox"><div class="symbol">文</div><h3>Natural Language Processing</h3><p>Human language in text or speech. Transformers support translation and language understanding; logistic regression and SVMs can classify text.</p></div>
+   <div class="domainbox"><div class="symbol">✧</div><h3>Generative AI</h3><p>Systems that create text, images, audio, or other content. Transformers generate text; VAEs and other generative architectures learn data distributions.</p></div>
+  </div>
+ </div>
+</section>
+<section id="comparison">
+ <div class="wrap">
+  <div class="section-kicker">04 / Quick comparison</div><h2>Choosing an approach</h2>
+  <p class="lead">Start with the problem and the data available. The best algorithm depends on the target, data size, interpretability needs, and evaluation criteria.</p>
+  <table class="compare"><thead><tr><th>Goal</th><th>Possible starting point</th><th>Why it may fit</th></tr></thead><tbody>
+   <tr><td>Predict a numerical value</td><td>Linear Regression, Random Forest</td><td>Both can estimate continuous outcomes; the forest can model nonlinear patterns.</td></tr>
+   <tr><td>Predict a category</td><td>Logistic Regression, Decision Tree, SVM</td><td>These methods learn decision rules or boundaries from labeled examples.</td></tr>
+   <tr><td>Group similar records</td><td>K-Means, DBSCAN</td><td>They discover clusters without requiring class labels.</td></tr>
+   <tr><td>Reduce feature count</td><td>PCA, Autoencoder</td><td>They create compact representations of high-dimensional data.</td></tr>
+   <tr><td>Understand or generate language</td><td>Transformer</td><td>Attention models relationships among tokens and supports many language tasks.</td></tr>
+   <tr><td>Learn or generate image representations</td><td>CNN, Autoencoder / VAE</td><td>CNNs learn spatial features; autoencoders learn compressed representations and VAEs can generate samples.</td></tr>
+  </tbody></table>
+  <div class="callout"><b>Practical reminder:</b> A model should be evaluated on data it did not train on. Classification tasks often use precision, recall, and F1-score; regression tasks often use MAE or RMSE; clustering may use silhouette score alongside domain judgment.</div>
+ </div>
+</section>
+<section id="reflection" style="background:#eaf0f6">
+ <div class="wrap">
+  <div class="section-kicker">05 / Learning reflection</div><h2>What I learned</h2>
+  <div class="reflection">
+   <p>Building this framework helped me understand that machine learning algorithms are designed for different types of problems. Supervised learning uses labeled examples to predict an outcome, while unsupervised learning looks for structure in data without predefined labels. This distinction helped me see why regression and classification are useful for prediction, while clustering and dimensionality reduction are useful for exploring data.</p>
+   <p>I also learned that an algorithm's application domain is not always fixed. For example, support vector machines can be used with structured data or text features, while convolutional neural networks are especially useful for image data. Transformers have become important in natural language processing and generative AI because attention helps them model relationships across a sequence.</p>
+   <p>In future projects, I want to focus on selecting a model based on the problem and the quality of the available data instead of choosing a method only because it is popular. I also need to evaluate model performance carefully and explain what the results mean in a real-world context. This framework gives me a reference point for comparing methods as I continue learning about machine learning and AI.</p>
+  </div>
+ </div>
+</section>
+<section id="references">
+ <div class="wrap">
+  <div class="section-kicker">06 / References & further learning</div><h2>Sources</h2>
+  <p class="lead">These resources provide introductory context for the relationship among AI, machine learning, deep learning, and generative AI.</p>
+  <ol>
+   <li>e-Core. (n.d.). <i>What are the differences between AI, ML, DL, and Gen AI?</i> <a href="https://www.e-core.com/na-en/articles/differences-between-ai-ml-dl-gen-ai" target="_blank" rel="noopener">Read the article</a>.</li>
+   <li><i>Unraveling the Differences Between AI, ML, DL, and GenAI.</i> (n.d.). YouTube. <a href="https://www.youtube.com/watch?v=lp_BTL_yADU" target="_blank" rel="noopener">Watch the video</a>.</li>
+   <li>Google for Developers. (n.d.). <i>Machine Learning Crash Course.</i> <a href="https://developers.google.com/machine-learning/crash-course" target="_blank" rel="noopener">Explore the course</a>.</li>
+  </ol>
+  <p class="small">Prepared as an educational visual framework. Algorithm descriptions are concise summaries; implementation details vary by dataset and task.</p>
+ </div>
+</section>
+</main>
+<footer><div class="wrap">Machine Learning Algorithms — Visual Framework <span style="float:right">Professional Portfolio Artifact</span></div></footer>
+<script>
+const buttons=[...document.querySelectorAll('.filters button')];
+const cards=[...document.querySelectorAll('.card')];
+buttons.forEach(btn=>btn.addEventListener('click',()=>{
+ buttons.forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+ const f=btn.dataset.filter;
+ cards.forEach(card=>{
+  const show=f==='all'||card.dataset.type===f||card.dataset.domains.split(' ').includes(f);
+  card.classList.toggle('hidden',!show);
+ });
+}));
+</script>
+</body>
+</html>
