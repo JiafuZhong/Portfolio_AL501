@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neural Networks — Interactive Learning Portfolio</title>
+<style>
+:root{--bg:#f4f7fb;--card:#fff;--ink:#17243b;--muted:#607089;--blue:#315efb;--cyan:#18a6b8;--line:#dce4ef;--soft:#edf2ff;--green:#16866b;--orange:#c47722}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:linear-gradient(120deg,#15274b,#284f9d 65%,#167d91);color:white;padding:54px max(24px,calc((100% - 1120px)/2)) 48px}
+.eyebrow{text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;font-weight:800;opacity:.8}h1{font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.08;margin:12px 0}header p{max-width:760px;color:#e2eaff;font-size:1.08rem;margin:14px 0 0}
+main{max-width:1120px;margin:30px auto;padding:0 22px 60px}.section{margin:28px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin-bottom:14px}.section h2{font-size:1.55rem;margin:0}.section-intro{color:var(--muted);margin:5px 0 0}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:0 5px 20px #243b5b0a}.card h3{margin:0 0 8px;font-size:1.08rem}.card p{margin:0;color:var(--muted)}.num{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--soft);color:var(--blue);font-weight:800;margin-bottom:12px}
+.architecture{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;overflow:hidden}.arch-note{color:var(--muted);font-size:.9rem;margin:0 0 10px}.arch-svg{width:100%;height:auto;display:block;min-height:210px}.arch-svg text{font-family:inherit;fill:#34445e}.arch-svg .node{fill:#eaf0ff;stroke:#315efb;stroke-width:2}.arch-svg .out{fill:#e2f7f4;stroke:#18a6b8}.arch-svg .edge{stroke:#9eacc0;stroke-width:1.4;opacity:.8}.arch-svg .label{font-size:13px;font-weight:700}.arch-svg .small{font-size:11px;fill:#718098}
+.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}.control{background:#f8faff;border:1px solid var(--line);border-radius:12px;padding:12px}.control label{display:block;font-weight:700;font-size:.85rem;margin-bottom:7px}.control select,.control input{width:100%;accent-color:var(--blue)}.control select{padding:8px;border:1px solid #cbd5e3;border-radius:8px;background:#fff;color:var(--ink)}.range-row{display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}.btn{border:0;border-radius:10px;background:var(--blue);color:white;padding:11px 18px;font-weight:750;cursor:pointer}.btn.secondary{background:#e9eef8;color:#263b61}.btn:disabled{opacity:.55;cursor:wait}.lab-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}.plot-wrap{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px}.plot-title{font-weight:800;margin:0 0 8px}.plot{width:100%;aspect-ratio:1.25;display:block;background:#f8faff;border-radius:10px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.metric{background:#f6f8fc;border-radius:10px;padding:10px}.metric small{display:block;color:var(--muted)}.metric strong{font-size:1.15rem}.side-info{display:flex;flex-direction:column;gap:12px}.side-info .card{padding:16px}.status{color:var(--green);font-weight:750}.component-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.component{display:flex;gap:13px}.component .num{flex:0 0 30px}.component h3{margin:0 0 4px}.component p{font-size:.93rem}.callout{background:#eef7fb;border-left:4px solid var(--cyan);padding:14px 17px;border-radius:9px;color:#36546a}.summary{background:linear-gradient(135deg,#172b51,#264b91);color:#fff;border-radius:18px;padding:25px}.summary h2{margin-top:0}.summary p,.summary li{color:#e2eaff}.summary ul{margin-bottom:0}.reflection{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.reflection p{margin:8px 0;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:.85rem;padding:25px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.controls{grid-template-columns:repeat(2,1fr)}.lab-layout{grid-template-columns:1fr}.component-list{grid-template-columns:1fr}}
+@media(max-width:520px){header{padding:38px 22px}.grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.section-head{display:block}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Machine Learning · Visual Learning Artifact</div>
+  <h1>Understanding Neural Networks</h1>
+  <p>An interactive guide to the structure, core components, and training process of a neural network. Adjust the model and observe how its decision boundary changes.</p>
+</header>
+<main>
+<section class="section">
+  <div class="section-head"><div><h2>1. Neural Network Architecture</h2><p class="section-intro">Information moves from left to right: inputs are transformed by hidden layers to produce a prediction.</p></div></div>
+  <div class="architecture">
+    <p class="arch-note">Each circle represents a neuron. Lines represent weighted connections between neurons.</p>
+    <svg class="arch-svg" viewBox="0 0 900 270" role="img" aria-label="Neural network with two input neurons, two hidden layers, and one output neuron">
+      <g id="edges"></g><g id="nodes"></g>
+      <text x="82" y="246" text-anchor="middle" class="label">Input layer</text>
+      <text x="82" y="263" text-anchor="middle" class="small">Features</text>
+      <text x="340" y="246" text-anchor="middle" class="label">Hidden layer 1</text>
+      <text x="340" y="263" text-anchor="middle" class="small">Learn patterns</text>
+      <text x="590" y="246" text-anchor="middle" class="label">Hidden layer 2</text>
+      <text x="590" y="263" text-anchor="middle" class="small">Combine patterns</text>
+      <text x="820" y="246" text-anchor="middle" class="label">Output layer</text>
+      <text x="820" y="263" text-anchor="middle" class="small">Prediction</text>
+    </svg>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><h2>2. Explore a Neural Network</h2><p class="section-intro">This small browser-based classifier uses generated two-dimensional data. Change its settings, train it, and compare the result.</p></div></div>
+  <div class="card">
+    <div class="controls">
+      <div class="control"><label for="dataset">Dataset pattern</label><select id="dataset"><option value="xor">XOR</option><option value="circle">Circle</option><option value="clusters">Two clusters</option></select></div>
+      <div class="control"><label for="layers">Hidden layers</label><select id="layers"><option>1</option><option selected>2</option><option>3</option></select></div>
+      <div class="control"><label for="neurons">Neurons per layer</label><select id="neurons"><option>3</option><option selected>5</option><option>8</option></select></div>
+      <div class="control"><label for="activation">Activation function</label><select id="activation"><option value="tanh">Tanh</option><option value="relu">ReLU</option><option value="sigmoid">Sigmoid</option></select></div>
+      <div class="control"><label for="noise">Data noise <span id="noiseVal">15%</span></label><input id="noise" type="range" min="0" max="50" value="15"><div class="range-row"><span>Low</span><span>High</span></div></div>
+      <div class="control"><label for="learning">Learning rate <span id="lrVal">0.03</span></label><input id="learning" type="range" min="1" max="20" value="3"><div class="range-row"><span>Slower</span><span>Faster</span></div></div>
+      <div class="control"><label for="epochs">Training steps</label><select id="epochs"><option value="300">300</option><option value="700" selected>700</option><option value="1200">1,200</option></select></div>
+      <div class="control"><label for="optimizer">Optimizer</label><select id="optimizer"><option value="sgd">Gradient descent (SGD)</option><option value="momentum">Momentum</option></select></div>
+    </div>
+    <button class="btn" id="train">Train model</button>
+    <button class="btn secondary" id="reset">Reset model</button>
+    <span id="status" class="status" aria-live="polite"> Ready to train</span>
+  </div>
+  <div class="lab-layout" style="margin-top:15px">
+    <div class="plot-wrap">
+      <p class="plot-title">Learned decision boundary</p>
+      <canvas id="plot" class="plot" width="650" height="520" aria-label="Decision boundary plot"></canvas>
+      <div class="metrics">
+        <div class="metric"><small>Training accuracy</small><strong id="accuracy">—</strong></div>
+        <div class="metric"><small>Final loss</small><strong id="loss">—</strong></div>
+        <div class="metric"><small>Training steps</small><strong id="steps">0</strong></div>
+      </div>
+    </div>
+    <div class="side-info">
+      <div class="card"><h3>What to observe</h3><p>Try XOR, then increase the hidden-layer size. A model with too few neurons may not capture a curved or separated pattern. More layers can learn richer representations, but also increase computation.</p></div>
+      <div class="card"><h3>Noise and generalization</h3><p>Noise makes examples less orderly. The model may need more training, and its boundary may become less certain. A complex model can also fit noise instead of the underlying pattern.</p></div>
+      <div class="card"><h3>Training time</h3><p>More neurons, layers, and training steps require more calculations. This demo trains a small model locally in your browser; larger real-world networks require much more compute.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><h2>3. Six Essential Components</h2><p class="section-intro">The components work together to transform data, measure errors, and improve predictions.</p></div></div>
+  <div class="component-list">
+    <div class="card component"><div class="num">1</div><div><h3>Layers</h3><p>A layer is a group of neurons at the same stage of processing. The input layer receives features, hidden layers learn intermediate patterns, and the output layer produces the final prediction.</p></div></div>
+    <div class="card component"><div class="num">2</div><div><h3>Neurons</h3><p>A neuron receives values from the previous layer, calculates a weighted sum plus a bias, and applies an activation function. It acts as a basic processing unit.</p></div></div>
+    <div class="card component"><div class="num">3</div><div><h3>Weights</h3><p>Weights determine how strongly one neuron influences another. During training, the network adjusts these values so useful signals have more influence on the prediction.</p></div></div>
+    <div class="card component"><div class="num">4</div><div><h3>Activation Functions</h3><p>An activation function transforms a neuron's result and introduces nonlinearity. ReLU, sigmoid, and tanh are common examples. Without nonlinear activations, stacked layers behave like one linear transformation.</p></div></div>
+    <div class="card component"><div class="num">5</div><div><h3>Loss Functions</h3><p>A loss function measures the difference between predictions and the correct answers. For classification, cross-entropy is common; for regression, mean squared error is often used. Lower loss generally indicates better fit.</p></div></div>
+    <div class="card component"><div class="num">6</div><div><h3>Optimization Algorithms</h3><p>An optimizer updates weights and biases to reduce loss. Gradient descent uses gradients to choose updates; variants such as SGD with momentum can make learning more stable or faster.</p></div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="callout"><strong>How training works:</strong> The network makes a prediction (forward pass), calculates its loss, sends error information backward through the network (backpropagation), and uses an optimizer to update weights. This cycle repeats over many training steps.</div>
+</section>
+
+<section class="section">
+  <div class="summary">
+    <h2>4. Summary — Why Visualization Matters</h2>
+    <p>Visualizing a neural network makes an abstract learning process easier to understand. The architecture shows how information travels through layers, while the decision boundary provides a visible result of what the model has learned.</p>
+    <ul>
+      <li>Layers and neurons determine how information is represented and processed.</li>
+      <li>Weights and activation functions allow the network to learn useful nonlinear patterns.</li>
+      <li>Loss functions measure prediction errors, and optimizers guide improvements.</li>
+      <li>Model complexity, noise, and training settings affect both performance and training time.</li>
+    </ul>
+    <p><strong>Key insight:</strong> A larger network is not automatically a better network. The goal is to choose a model that captures the pattern without becoming unnecessarily complex or fitting random noise.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head"><div><h2>5. Learning Reflection</h2><p class="section-intro">A brief reflection you can adapt after completing your own experiments in TensorFlow Playground.</p></div></div>
+  <div class="reflection">
+    <p>Creating this artifact helped me connect the theory of neural networks with a visual example. I learned how layers and neurons process information, how weights influence predictions, and why activation functions are needed to recognize nonlinear patterns. Experimenting with different network sizes and data noise also showed me that model complexity affects both training time and performance. One important lesson was that adding more neurons or layers does not always improve a model. The network must be designed for the structure of the data, and its performance should be evaluated rather than judged by complexity alone. Visualizing the architecture and decision boundary made the training process easier to understand.</p>
+    <p><em>Before submitting: update this reflection with one specific result you observed in TensorFlow Playground (for example, what changed when you increased noise or added a hidden layer).</em></p>
+  </div>
+</section>
+<footer>Neural Networks · Interactive Learning Artifact · Prepared for a professional learning portfolio</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+let net=null, points=[], lastLoss=NaN, lastAcc=NaN;
+const W=650,H=520;
+function randn(){let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function makeData(){
+ const kind=$('dataset').value, noise=+$('noise').value/100; points=[];
+ for(let i=0;i<360;i++){
+  let x,y,label=i%2;
+  if(kind==='xor'){x=(Math.random()*2-1);y=(Math.random()*2-1);label=(x*y>0)?1:0}
+  else if(kind==='circle'){let a=Math.random()*Math.PI*2,r=label===1?.22:.65;r+=randn()*noise*.45;x=Math.cos(a)*r;y=Math.sin(a)*r}
+  else {let c=label===1?.48:-.48;x=c+randn()*(.18+noise*.3);y=(label===1?-.35:.35)+randn()*(.18+noise*.3)}
+  x+=randn()*noise*.15;y+=randn()*noise*.15;
+  points.push({x,y,y:label});
+ }
+}
+const sigmoid=x=>1/(1+Math.exp(-Math.max(-30,Math.min(30,x))));
+function activate(z,type){return type==='relu'?Math.max(0,z):type==='sigmoid'?sigmoid(z):Math.tanh(z)}
+function deriv(z,a,type){return type==='relu'?(z>0?1:0):type==='sigmoid'?a*(1-a):1-a*a}
+function initNet(){
+ let sizes=[2,...Array(+$('layers').value).fill(+$('neurons').value),1], layers=[];
+ for(let l=1;l<sizes.length;l++){
+  let rows=[];
+  for(let j=0;j<sizes[l];j++)rows.push({w:Array.from({length:sizes[l-1]},()=>randn()*.7),b:0,v:Array(sizes[l-1]).fill(0),vb:0});
+  layers.push(rows);
+ }
+ return {sizes,layers};
+}
+function forward(x,model=net){
+ let acts=[x],zs=[],type=$('activation').value;
+ for(let l=0;l<model.layers.length;l++){
+  let z=[],a=[];
+  for(const neuron of model.layers[l]){
+   let s=neuron.b;for(let k=0;k<neuron.w.length;k++)s+=neuron.w[k]*acts[l][k];
+   z.push(s);a.push(l===model.layers.length-1?sigmoid(s):activate(s,type));
+  }
+  zs.push(z);acts.push(a);
+ }
+ return {acts,zs,out:acts.at(-1)[0]};
+}
+function train(){
+ $('train').disabled=true;$('status').textContent=' Training…';
+ makeData();net=initNet();const lr=+$('learning').value/100,epochs=+$('epochs').value,momentum=$('optimizer').value==='momentum'?.85:0;
+ let loss=0;
+ for(let ep=0;ep<epochs;ep++){
+  // Shuffle examples each epoch.
+  for(let q=points.length-1;q>0;q--){let j=Math.floor(Math.random()*(q+1));[points[q],points[j]]=[points[j],points[q]]}
+  loss=0;
+  for(const p of points){
+   const f=forward([p.x,p.y]),delta=[];
+   const out=f.out;loss+=-(p.y*Math.log(out+1e-8)+(1-p.y)*Math.log(1-out+1e-8));
+   delta[net.layers.length-1]=[out-p.y];
+   const type=$('activation').value;
+   for(let l=net.layers.length-2;l>=0;l--){
+    delta[l]=[];
+    for(let j=0;j<net.sizes[l+1];j++){
+     let sum=0;for(let k=0;k<net.sizes[l+2];k++)sum+=net.layers[l+1][k].w[j]*delta[l+1][k];
+     delta[l][j]=sum*deriv(f.zs[l][j],f.acts[l+1][j],type);
+    }
+   }
+   for(let l=0;l<net.layers.length;l++){
+    for(let j=0;j<net.layers[l].length;j++){
+     let n=net.layers[l][j];
+     for(let k=0;k<n.w.length;k++){
+      let grad=delta[l][j]*f.acts[l][k];
+      n.v[k]=momentum*n.v[k]+grad;n.w[k]-=lr*n.v[k];
+     }
+     n.vb=momentum*n.vb+delta[l][j];n.b-=lr*n.vb;
+    }
+   }
+  }
+  loss/=points.length;
+ }
+ let correct=0;for(const p of points)if((forward([p.x,p.y]).out>=.5?1:0)===p.y)correct++;
+ lastLoss=loss;lastAcc=correct/points.length;draw();
+ $('accuracy').textContent=(lastAcc*100).toFixed(1)+'%';$('loss').textContent=lastLoss.toFixed(3);$('steps').textContent=epochs.toLocaleString();
+ $('status').textContent=' Training complete';$('train').disabled=false;
+ drawArchitecture();
+}
+function draw(){
+ const c=$('plot'),ctx=c.getContext('2d');ctx.clearRect(0,0,W,H);
+ const sx=x=>(x+1.25)/2.5*W, sy=y=>(1.25-y)/2.5*H;
+ if(net){
+  const cell=5;
+  for(let px=0;px<W;px+=cell)for(let py=0;py<H;py+=cell){
+   let x=px/W*2.5-1.25,y=1.25-py/H*2.5,v=forward([x,y]).out;
+   ctx.fillStyle=v>.5?`rgba(49,94,251,${.08+v*.15})`:`rgba(24,166,184,${.08+(1-v)*.15})`;ctx.fillRect(px,py,cell,cell);
+  }
+ }
+ for(const p of points){ctx.beginPath();ctx.arc(sx(p.x),sy(p.y),4.1,0,Math.PI*2);ctx.fillStyle=p.y?'#315efb':'#18a6b8';ctx.fill();ctx.strokeStyle='#fff';ctx.lineWidth=1;ctx.stroke()}
+ ctx.strokeStyle='#b8c4d5';ctx.lineWidth=1;ctx.strokeRect(0,0,W,H);
+}
+function drawArchitecture(){
+ const ns=[2,...Array(+$('layers').value).fill(+$('neurons').value),1];
+ const xs=ns.map((_,i)=>82+i*(738/(ns.length-1)));
+ const e=$('edges'),n=$('nodes');e.innerHTML='';n.innerHTML='';
+ const pos=ns.map((count,i)=>Array.from({length:count},(_,j)=>({x:xs[i],y:135-(count-1)*Math.min(24,100/(count||1))/2+j*Math.min(48,200/(count||1))})));
+ for(let l=0;l<pos.length-1;l++)for(const a of pos[l])for(const b of pos[l+1])e.innerHTML+=`<line class="edge" x1="${a.x+12}" y1="${a.y}" x2="${b.x-12}" y2="${b.y}"/>`;
+ pos.forEach((layer,i)=>layer.forEach(p=>n.innerHTML+=`<circle class="node ${i===pos.length-1?'out':''}" cx="${p.x}" cy="${p.y}" r="12"/>`));
+ const names=['Input layer',...Array.from({length:ns.length-2},(_,i)=>`Hidden layer ${i+1}`),'Output layer'];
+ names.forEach((name,i)=>{n.innerHTML+=`<text x="${xs[i]}" y="246" text-anchor="middle" class="label">${name}</text><text x="${xs[i]}" y="263" text-anchor="middle" class="small">${i===0?'Features':i===ns.length-1?'Prediction':'Learn patterns'}</text>`});
+}
+$('train').addEventListener('click',train);
+$('reset').addEventListener('click',()=>{net=null;points=[];makeData();$('accuracy').textContent='—';$('loss').textContent='—';$('steps').textContent='0';$('status').textContent=' Reset — ready to train';draw();drawArchitecture()});
+$('noise').addEventListener('input',e=>$('noiseVal').textContent=e.target.value+'%');
+$('learning').addEventListener('input',e=>$('lrVal').textContent=(e.target.value/100).toFixed(2));
+['layers','neurons'].forEach(id=>$(id).addEventListener('change',drawArchitecture));
+makeData();draw();drawArchitecture();
+</script>
+</body>
+</html>
