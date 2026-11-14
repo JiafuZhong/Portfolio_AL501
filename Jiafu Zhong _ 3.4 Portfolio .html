@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jiafu Zhong | Data Analytics Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf8f5;--surface:#fff;--ink:#1d2433;--muted:#566075;--line:#ddd8cf;--accent:#1f4fd8;--a2:#0f766e;--warm:#c2410c;--tint:#eef2fd;--hl:#fff3d6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12151c;--surface:#1a1f2a;--ink:#eef0f5;--muted:#a9b2c3;--line:#2c3446;--accent:#8fb0ff;--a2:#5fd4c7;--warm:#ff9a6b;--tint:#1d2640;--hl:#3a3118}}
+:root[data-theme="dark"]{--bg:#12151c;--surface:#1a1f2a;--ink:#eef0f5;--muted:#a9b2c3;--line:#2c3446;--accent:#8fb0ff;--a2:#5fd4c7;--warm:#ff9a6b;--tint:#1d2640;--hl:#3a3118}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 "Source Sans 3",system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:6}
+h1,h2,h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.15;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
+nav .wrap{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding-top:10px;padding-bottom:10px}
+nav strong{font-family:"Bricolage Grotesque",sans-serif;margin-right:auto}
+nav a{text-decoration:none;color:var(--ink);padding:6px 12px;border-radius:999px;font-size:15px}
+nav a:hover{background:var(--tint)}
+nav a[aria-current="page"]{background:var(--accent);color:#fff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) nav a[aria-current="page"]{color:#0b1020}}
+:root[data-theme="dark"] nav a[aria-current="page"]{color:#0b1020}
+[hidden]{display:none!important}
+a{color:var(--accent)}
+.hero{padding:60px 0 36px;max-width:760px}
+.hero h1{font-size:clamp(38px,7vw,68px);font-weight:700}
+.hero p{font-size:19px;color:var(--muted);margin:18px 0 0}
+section{padding:38px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(26px,4vw,36px);margin-bottom:16px}
+h3{font-size:22px;margin-bottom:8px}
+p{margin:0 0 14px;max-width:68ch}
+.muted{color:var(--muted)}
+.proj{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px}
+.proj.feat{border-color:var(--accent);box-shadow:0 0 0 3px var(--tint)}
+.tag{font-size:14px;color:var(--muted);margin:-4px 0 12px}
+.sub{font-size:19px;margin:28px 0 10px;font-family:"Bricolage Grotesque",sans-serif}
+.pipe{display:grid;grid-template-columns:repeat(7,1fr);list-style:none;margin:0;padding:0;counter-reset:s}
+.pipe li{counter-increment:s;background:var(--bg);border:1px solid var(--line);border-left-width:0;padding:12px 10px;font-size:14px;line-height:1.35}
+.pipe li:first-child{border-left-width:1px;border-radius:10px 0 0 10px}
+.pipe li:last-child{border-radius:0 10px 10px 0}
+.pipe li::before{content:counter(s);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--a2);color:#fff;font-weight:600;font-size:13px;margin-bottom:6px}
+.pipe b{display:block;margin-bottom:3px}
+.pipe .big{background:var(--hl);box-shadow:inset 0 3px 0 var(--warm)}
+.pipe .big::before{background:var(--warm)}
+.pipe span{color:var(--muted);font-size:13px}
+.res{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.res div{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg)}
+.res b{display:block;font-size:15px}
+.res .k{font-family:"Bricolage Grotesque",sans-serif;font-size:20px;font-weight:700;color:var(--accent);display:block;margin:2px 0 4px}
+.res span:last-child{font-size:14px;color:var(--muted)}
+.row{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin:8px 0}
+.row .n{font-weight:600;font-size:15px}
+.bar{height:28px;border-radius:6px;background:var(--warm);display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-size:13px;font-weight:600;white-space:nowrap;min-width:6px}
+.bar.s{background:none;justify-content:flex-start;color:var(--ink);padding:0}
+.bar.s::before{content:"";width:var(--w);height:28px;background:var(--warm);border-radius:6px;margin-right:8px;min-width:6px}
+.cap{font-size:13px;color:var(--muted);margin:10px 0 0}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:700px;font-size:14px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--tint)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600}
+.nd{color:var(--muted);font-style:italic}
+.btn{display:inline-block;margin-top:6px;padding:9px 16px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .btn{color:#0b1020}}
+:root[data-theme="dark"] .btn{color:#0b1020}
+ul.tags{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;gap:6px}
+ul.tags li{background:var(--tint);border-radius:6px;padding:3px 10px;font-size:15px}
+ul.tags.next li{background:var(--hl)}
+footer{padding:28px 0 50px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+@media (max-width:820px){
+.pipe{grid-template-columns:1fr}
+.pipe li,.pipe li:first-child,.pipe li:last-child{border-radius:0;border-left-width:1px;border-top-width:0}
+.pipe li:first-child{border-top-width:1px;border-radius:10px 10px 0 0}
+.pipe li:last-child{border-radius:0 0 10px 10px}
+.res{grid-template-columns:1fr 1fr}
+.row{grid-template-columns:1fr;gap:3px}}
+@media (max-width:480px){.res{grid-template-columns:1fr}}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+<nav aria-label="Pages"><div class="wrap"><strong>Jiafu Zhong</strong><a href="#portfolio" data-v="portfolio">Portfolio</a><a href="#infographic" data-v="infographic">Infographic</a></div></nav>
+<main class="wrap">
+<div id="view-portfolio" class="view">
+
+<div class="hero">
+<h1>From moving packages to reading the data behind them.</h1>
+<p>I work in supply chain operations and I am training to become a data analyst.</p>
+</div>
+
+<section id="about">
+<h2>About me</h2>
+<p>I am an Operations Assistant at a delivery company. I dispatch delivery partners, run the daily control meeting, review partner performance, and step in when something goes wrong on the road.</p>
+<p>Most of that work depends on numbers. I want to become a data analyst in supply chain so I can find out why a metric moves and suggest what to do about it. Knowing how dispatch really works helps me ask better questions of a dataset.</p>
+</section>
+
+<section id="work">
+<h2>Work samples</h2>
+
+<article class="proj feat">
+<h3>How a Large Language Model Is Trained</h3>
+<p class="tag">Course assignment, infographic</p>
+<p>This infographic explains how generative AI models are trained and what the process costs. The main difficulty was missing data, because companies rarely publish training details. I used published figures where they exist, labeled outside estimates as estimates, and wrote "Not disclosed" for the rest.</p>
+<a class="btn" href="#infographic">View the infographic</a>
+</article>
+
+<article class="proj">
+<h3>ODI Men's Cricket Analysis</h3>
+<p class="tag">Workshop assignment, Excel workbook and presentation</p>
+<p>I analyzed a public Kaggle dataset of men's One Day International matches from 2002 to 2023. I organized the data in Excel, charted the main patterns, and presented the findings as slides.</p>
+</article>
+
+<article class="proj">
+<h3>Overfitting and Underfitting in TensorFlow Playground</h3>
+<p class="tag">Workshop assignment, written report</p>
+<p>I used the TensorFlow Playground simulator to see why a model can fit its training data well and still fail on new data. I changed the settings one at a time and recorded what happened.</p>
+</article>
+</section>
+
+<section id="skills">
+<h2>Skills</h2>
+<ul class="tags"><li>Microsoft Excel</li><li>Charts and dashboards</li><li>Data cleaning</li><li>Performance metrics</li><li>Dispatch and fleet operations</li><li>Quality assurance</li><li>Machine learning basics</li><li>Presentations</li><li>Chinese and English</li></ul>
+<p class="muted">Next on my list, for a supply chain analyst role:</p>
+<ul class="tags next"><li>SQL</li><li>Python</li><li>Power BI or Tableau</li></ul>
+</section>
+</div>
+
+<div id="view-infographic" class="view" hidden>
+<div class="hero"><h1>How a large language model is trained</h1>
+<p>The steps from raw text to a deployed assistant, and what each resource costs.</p></div>
+<section style="border-top:0;padding-top:0">
+<div class="sub">The training pipeline</div>
+<ol class="pipe">
+<li><b>Collect data</b><span>Web pages, books and code</span></li>
+<li><b>Clean and tokenize</b><span>Remove poor text, split into tokens</span></li>
+<li class="big"><b>Pretrain</b><span>Predict the next token on thousands of GPUs</span></li>
+<li><b>Fine-tune</b><span>Learn from example answers</span></li>
+<li><b>Align</b><span>Human feedback (RLHF)</span></li>
+<li><b>Evaluate</b><span>Benchmarks and safety tests</span></li>
+<li><b>Deploy</b><span>Apps and APIs</span></li>
+</ol>
+<p class="cap">Pretraining (highlighted) uses most of the compute and money.</p>
+
+<div class="sub">What it takes</div>
+<div class="res">
+<div><b>Data</b><span class="k">2T to 15T+ tokens</span><span>Modern open models read trillions of tokens.</span></div>
+<div><b>Compute</b><span class="k">10²³ to 10²⁵ FLOPs</span><span>Frontier runs use 16,000 or more chips.</span></div>
+<div><b>Energy</b><span class="k">1,000+ MWh</span><span>GPT-3 used about 1,287 MWh.</span></div>
+<div><b>Time</b><span class="k">Weeks to months</span><span>Plus months of data work and testing.</span></div>
+</div>
+
+<div class="sub">Estimated compute cost of one training run</div>
+<div role="img" aria-label="Bar chart: GPT-3 about 4.6 million dollars, GPT-4 about 78 million, Gemini Ultra about 191 million">
+<div class="row"><span class="n">GPT-3 (2020)</span><div class="bar s" style="--w:2.4%">$4.6M</div></div>
+<div class="row"><span class="n">GPT-4 (2023)</span><div class="bar" style="width:41%">$78M</div></div>
+<div class="row"><span class="n">Gemini Ultra (2023)</span><div class="bar" style="width:100%">$191M</div></div>
+</div>
+<p class="cap">GPT-3 from a Lambda Labs analysis. GPT-4 and Gemini Ultra from the Stanford AI Index 2024 (Epoch AI estimates). These are outside estimates, not company figures.</p>
+
+<div class="sub">Examples from real models</div>
+<div class="tw"><table>
+<thead><tr><th>Model</th><th>Training data</th><th>Compute</th><th>Energy and emissions</th></tr></thead>
+<tbody>
+<tr><td>GPT-3 (OpenAI)</td><td>About 300B tokens</td><td>About 3.1×10²³ FLOPs</td><td>About 1,287 MWh and 552 t CO₂e</td></tr>
+<tr><td>LLaMA 2 70B (Meta)</td><td>2T tokens</td><td>1.72M A100 GPU-hours</td><td>About 291 t CO₂e</td></tr>
+<tr><td>Llama 3.1 405B (Meta)</td><td>15T+ tokens</td><td>30.8M H100 GPU-hours</td><td>About 8,930 t CO₂e</td></tr>
+<tr><td>GPT-4 (OpenAI)</td><td class="nd">Not disclosed</td><td>About 2×10²⁵ FLOPs (estimate)</td><td class="nd">Not disclosed</td></tr>
+<tr><td>Gemini Ultra (Google)</td><td class="nd">Not disclosed</td><td>Google TPUs</td><td class="nd">Not disclosed</td></tr>
+<tr><td>Claude (Anthropic)</td><td class="nd">Not disclosed</td><td class="nd">Not disclosed</td><td class="nd">Not disclosed</td></tr>
+</tbody></table></div>
+
+
+<p>More data, more parameters and more compute make models more accurate, which is why labs keep building larger clusters. Estimated compute cost grew about 17 times from GPT-3 to GPT-4, so very few organizations can train a frontier model. Fine-tuning and alignment use little compute, yet they turn a text predictor into an assistant people can use.</p>
+
+<p><a href="#portfolio">Back to portfolio</a></p>
+</section>
+</div>
+</main>
+<footer><div class="wrap">Jiafu Zhong. Portfolio for an AI and machine learning course. Use the tabs at the top to switch between the portfolio and the infographic.</div></footer>
+<script>
+(function(){
+var views=["portfolio","infographic"];
+function show(){
+var h=(location.hash||"").replace("#","");
+if(views.indexOf(h)<0)h="portfolio";
+views.forEach(function(v){
+document.getElementById("view-"+v).hidden=(v!==h);
+});
+document.querySelectorAll("nav a").forEach(function(a){
+if(a.getAttribute("data-v")===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");
+});
+window.scrollTo(0,0);
+}
+window.addEventListener("hashchange",show);
+show();
+})();
+</script>
+</body>
+</html>
